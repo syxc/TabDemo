@@ -1,7 +1,6 @@
 package org.syxc.tabdemo.ui;
 
-import static org.syxc.tabdemo.MainActivity.main;
-
+import org.syxc.tabdemo.MainActivity;
 import org.syxc.tabdemo.R;
 
 import android.os.Bundle;
@@ -17,7 +16,6 @@ public class LoginFragment extends Fragment {
 	private static final String TAG = "LoginFragment";
 
 	private View mRootView;
-	private Button mLogin;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,16 +28,22 @@ public class LoginFragment extends Fragment {
 			Bundle savedInstanceState) {
 		Log.i(TAG, "-- onCreateView --");
 		mRootView = (View) inflater.inflate(R.layout.fragment_login, container, false);
-		
-		mLogin = (Button) mRootView.findViewById(R.id.btnLogin);
+		return mRootView;
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		Log.i(TAG, "-- onActivityCreated --");
+		final Button mLogin = (Button) getView().findViewById(R.id.btnLogin);
 		mLogin.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				MainActivity main = (MainActivity) getActivity();
 				main.mHandler.sendEmptyMessage(main.FRAGMENT_HOME);
 			}
 		});
-		return mRootView;
 	}
 	
 	@Override

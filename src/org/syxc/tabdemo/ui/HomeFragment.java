@@ -1,7 +1,5 @@
 package org.syxc.tabdemo.ui;
 
-import static org.syxc.tabdemo.MainActivity.main;
-
 import org.syxc.tabdemo.R;
 
 import android.os.Bundle;
@@ -36,8 +34,14 @@ public class HomeFragment extends Fragment {
 			Bundle savedInstanceState) {
 		Log.i(TAG, "-- onCreateView --");
 		mRootView = (View) inflater.inflate(R.layout.fragment_home, container, false);
-		
-		mTabHost = (TabHost) mRootView.findViewById(android.R.id.tabhost);
+		return mRootView;
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		Log.i(TAG, "-- onActivityCreated --");
+		mTabHost = (TabHost) getView().findViewById(android.R.id.tabhost);
 		mTabHost.setup();
 		
 		final TabHost.OnTabChangeListener tabChangeListener = setupOnTabChangeListener();
@@ -45,8 +49,6 @@ public class HomeFragment extends Fragment {
 		mTabHost.setOnTabChangedListener(tabChangeListener);
 		
 		setupTabSpec();
-		
-		return mRootView;
 	}
 	
 	@Override
@@ -78,7 +80,7 @@ public class HomeFragment extends Fragment {
 			
 			@Override
 			public void onTabChanged(String tabId) {
-				FragmentManager fm = main.getSupportFragmentManager();
+				FragmentManager fm = getActivity().getSupportFragmentManager();
 				AndroidFragment androidFragment = (AndroidFragment) fm.findFragmentByTag("android");
 				IOSFragment iosFragment = (IOSFragment) fm.findFragmentByTag("ios");
 				WP8Fragment wp8Fragment = (WP8Fragment) fm.findFragmentByTag("wp8");
@@ -136,22 +138,22 @@ public class HomeFragment extends Fragment {
 	private void setupTabSpec() {
 		TabHost.TabSpec specAndroid = mTabHost.newTabSpec("android");
 		specAndroid.setIndicator(setupIndicator("Android", R.drawable.tab_info));
-		specAndroid.setContent(new DummyTabContent(main.getBaseContext()));
+		specAndroid.setContent(new DummyTabContent(getActivity().getBaseContext()));
 		mTabHost.addTab(specAndroid);
 		
 		TabHost.TabSpec specIOS = mTabHost.newTabSpec("ios");
 		specIOS.setIndicator(setupIndicator("iOS", R.drawable.tab_info));
-		specIOS.setContent(new DummyTabContent(main.getBaseContext()));
+		specIOS.setContent(new DummyTabContent(getActivity().getBaseContext()));
 		mTabHost.addTab(specIOS);
 		
 		TabHost.TabSpec specWP8 = mTabHost.newTabSpec("wp8");
 		specWP8.setIndicator(setupIndicator("WP8", R.drawable.tab_info));
-		specWP8.setContent(new DummyTabContent(main.getBaseContext()));
+		specWP8.setContent(new DummyTabContent(getActivity().getBaseContext()));
 		mTabHost.addTab(specWP8);
 		
 		TabHost.TabSpec specMore = mTabHost.newTabSpec("more");
 		specMore.setIndicator(setupIndicator("More", R.drawable.tab_info));
-		specMore.setContent(new DummyTabContent(main.getBaseContext()));
+		specMore.setContent(new DummyTabContent(getActivity().getBaseContext()));
 		mTabHost.addTab(specMore);
 		
 		mTabHost.setCurrentTab(0);
@@ -164,7 +166,7 @@ public class HomeFragment extends Fragment {
 	}
 	
 	private View setupIndicator(String label, int drawableId) {
-		final View view = LayoutInflater.from(main.getBaseContext()).inflate(R.layout.tab_indicator, mTabHost.getTabWidget(), false);
+		final View view = LayoutInflater.from(getActivity().getBaseContext()).inflate(R.layout.tab_indicator, mTabHost.getTabWidget(), false);
 		((TextView) view.findViewById(R.id.title)).setText(label);
 		((ImageView) view.findViewById(R.id.icon)).setImageResource(drawableId);
 		return view;

@@ -1,7 +1,6 @@
 package org.syxc.tabdemo.ui;
 
-import static org.syxc.tabdemo.MainActivity.main;
-
+import org.syxc.tabdemo.MainActivity;
 import org.syxc.tabdemo.R;
 
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 public class AboutFragment extends Fragment {
 
 	private View mRootView;
-	private TextView mBack;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -26,15 +24,22 @@ public class AboutFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mRootView = (View) inflater.inflate(R.layout.fragment_about, container, false);
-		
-		mBack = (TextView) mRootView.findViewById(R.id.back);
+		return mRootView;
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		final TextView mBack = (TextView) mRootView.findViewById(R.id.back);
 		mBack.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				main.mHandler.sendEmptyMessage(main.FRAGMENT_HOME);
+				//main.mHandler.sendEmptyMessage(main.FRAGMENT_HOME);
+//				MainActivity main = (MainActivity) getActivity();
+//				main.mHandler.sendEmptyMessage(main.DETACH_FRAGMENT);
+				getFragmentManager().popBackStack();
 			}
 		});
-		return mRootView;
 	}
 }

@@ -14,15 +14,16 @@ import android.view.Menu;
 
 public class MainActivity extends FragmentActivity {
 
-	public static MainActivity main = null;
+	//public static MainActivity main = null;
 	
 	public final int FRAGMENT_LOGIN = 0x01;
 	public final int FRAGMENT_HOME = 0x02;
 	public final int FRAGMENT_ABOUT = 0x03;
+	public final int DETACH_FRAGMENT = 0x04;
 	
 	private boolean isAutoLogin = false;
 	
-	public Handler mHandler = new Handler() {
+	public final Handler mHandler = new Handler() {
 		
 		@Override
 		public void handleMessage(Message msg) {
@@ -65,31 +66,36 @@ public class MainActivity extends FragmentActivity {
 				
 				if (aboutFragment == null) {
 					ft.add(R.id.main_container, new AboutFragment(), "about");
+					ft.addToBackStack(null);
 				} else {
 					ft.attach(aboutFragment);
 				}
 				
 				ft.commit();
 				break;
+				
+			case DETACH_FRAGMENT:
+				detachFragment(fm, loginFragment, homeFragment, aboutFragment, ft);
+				break;
 			}
 		}
-
-		private FragmentTransaction detachFragment(final FragmentManager fm,
+		
+		FragmentTransaction detachFragment(final FragmentManager fm,
 				final LoginFragment loginFragment,
 				final HomeFragment homeFragment,
 				final AboutFragment aboutFragment, FragmentTransaction ft) {
 			if (ft == null) {
 				ft = fm.beginTransaction();
 			}
-			
+
 			if (loginFragment != null) {
 				ft.detach(loginFragment);
 			}
-			
+
 			if (homeFragment != null) {
 				ft.detach(homeFragment);
 			}
-			
+
 			if (aboutFragment != null) {
 				ft.detach(aboutFragment);
 			}
@@ -101,7 +107,7 @@ public class MainActivity extends FragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		main = this;
+		//main = this;
 		
 		if (isAutoLogin) {
 			mHandler.sendEmptyMessage(FRAGMENT_HOME);
@@ -120,4 +126,5 @@ public class MainActivity extends FragmentActivity {
 	protected FragmentManager getFragmentManager() {
 		return getSupportFragmentManager();
 	}
+	
 }
