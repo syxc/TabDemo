@@ -44,7 +44,6 @@ public class MainActivity extends FragmentActivity {
 				}
 				
 				ft.commit();
-				
 				break;
 				
 			case FRAGMENT_HOME: // Home
