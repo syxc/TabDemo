@@ -1,25 +1,19 @@
 package org.syxc.tabdemo;
 
-import org.syxc.tabdemo.ui.AboutFragment;
-import org.syxc.tabdemo.ui.HomeFragment;
-import org.syxc.tabdemo.ui.LoginFragment;
+import org.syxc.tabdemo.ui.base.BaseActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
 
 	//public static MainActivity main = null;
 	
 	public final int FRAGMENT_LOGIN = 0x01;
 	public final int FRAGMENT_HOME = 0x02;
 	public final int FRAGMENT_ABOUT = 0x03;
-	public final int DETACH_FRAGMENT = 0x04;
 	
 	private boolean isAutoLogin = false;
 	
@@ -27,79 +21,19 @@ public class MainActivity extends FragmentActivity {
 		
 		@Override
 		public void handleMessage(Message msg) {
-			final FragmentManager fm = getFragmentManager();
-			final LoginFragment loginFragment = (LoginFragment) fm.findFragmentByTag("login");
-			final HomeFragment homeFragment = (HomeFragment) fm.findFragmentByTag("home");
-			final AboutFragment aboutFragment = (AboutFragment) fm.findFragmentByTag("about");
-			FragmentTransaction ft = null;
-			
 			switch (msg.what) {
-			case FRAGMENT_LOGIN: // Login
-				ft = detachFragment(fm, loginFragment, homeFragment,
-						aboutFragment, ft);
-				
-				if (loginFragment == null) {
-					ft.add(R.id.main_container, new LoginFragment(), "login");
-				} else {
-					ft.attach(loginFragment);
-				}
-				
-				ft.commit();
+			case FRAGMENT_LOGIN:
+				goLogin();
 				break;
 				
-			case FRAGMENT_HOME: // Home
-				ft = detachFragment(fm, loginFragment, homeFragment,
-						aboutFragment, ft);
-				
-				if (homeFragment == null) {
-					ft.add(R.id.main_container, new HomeFragment(), "home");
-				} else {
-					ft.attach(homeFragment);
-				}
-				
-				ft.commit();
+			case FRAGMENT_HOME:
+				goHome();
 				break;
 				
-			case FRAGMENT_ABOUT: // About
-				ft = detachFragment(fm, loginFragment, homeFragment,
-						aboutFragment, ft);
-				
-				if (aboutFragment == null) {
-					ft.add(R.id.main_container, new AboutFragment(), "about");
-					ft.addToBackStack(null);
-				} else {
-					ft.attach(aboutFragment);
-				}
-				
-				ft.commit();
-				break;
-				
-			case DETACH_FRAGMENT:
-				detachFragment(fm, loginFragment, homeFragment, aboutFragment, ft);
+			case FRAGMENT_ABOUT:
+				goAbout();
 				break;
 			}
-		}
-		
-		FragmentTransaction detachFragment(final FragmentManager fm,
-				final LoginFragment loginFragment,
-				final HomeFragment homeFragment,
-				final AboutFragment aboutFragment, FragmentTransaction ft) {
-			if (ft == null) {
-				ft = fm.beginTransaction();
-			}
-
-			if (loginFragment != null) {
-				ft.detach(loginFragment);
-			}
-
-			if (homeFragment != null) {
-				ft.detach(homeFragment);
-			}
-
-			if (aboutFragment != null) {
-				ft.detach(aboutFragment);
-			}
-			return ft;
 		}
 	};
 	
@@ -120,11 +54,6 @@ public class MainActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
-	}
-	
-	
-	protected FragmentManager getFragmentManager() {
-		return getSupportFragmentManager();
 	}
 	
 }

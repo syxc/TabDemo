@@ -1,6 +1,5 @@
 package org.syxc.tabdemo.ui;
 
-import org.syxc.tabdemo.MainActivity;
 import org.syxc.tabdemo.R;
 
 import android.os.Bundle;
@@ -35,9 +34,6 @@ public class AboutFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				//main.mHandler.sendEmptyMessage(main.FRAGMENT_HOME);
-//				MainActivity main = (MainActivity) getActivity();
-//				main.mHandler.sendEmptyMessage(main.DETACH_FRAGMENT);
 				getFragmentManager().popBackStack();
 			}
 		});
