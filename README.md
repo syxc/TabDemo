@@ -1,15 +1,10 @@
-## TabDemo ##
+# TabDemo
 
-一个TabHost、Fragment结合使用的Demo
+一个 TabHost、Fragment 结合使用的 Demo
 
- >Android中实现Tab选项卡布局比较常见的是使用ActivityGroup去实现，
- >不过ActivityGroup已废弃，官方推荐使用Fragment和FragmentManager去实现
- >http://developer.android.com/reference/android/app/ActivityGroup.html
- 
- >参考:<br/>
- >http://ondrejcermak.info/en/programovani/custom-tabs-in-android-tutorial/<br/>
- >http://wptrafficanalyzer.in/blog/creating-navigation-tabs-using-tabhost-and-fragments-in-android/
+> Android 中实现 Tab 选项卡布局比较常见的是使用 ActivityGroup 去实现， 不过 ActivityGroup 已废弃，官方推荐使用 Fragment 和 FragmentManager 去实现 [http://developer.android.com/reference/android/app/ActivityGroup.html](http://developer.android.com/reference/android/app/ActivityGroup.html)
 
-[http://developer.android.com/reference/android/app/ActivityGroup.html]: http://developer.android.com/reference/android/app/ActivityGroup.html
-[http://ondrejcermak.info/en/programovani/custom-tabs-in-android-tutorial/]: http://ondrejcermak.info/en/programovani/custom-tabs-in-android-tutorial/
-[http://wptrafficanalyzer.in/blog/creating-navigation-tabs-using-tabhost-and-fragments-in-android/]: http://wptrafficanalyzer.in/blog/creating-navigation-tabs-using-tabhost-and-fragments-in-android/
+## 参考
+
+- [http://ondrejcermak.info/en/programovani/custom-tabs-in-android-tutorial/](http://ondrejcermak.info/en/programovani/custom-tabs-in-android-tutorial/)
+- [http://wptrafficanalyzer.in/blog/creating-navigation-tabs-using-tabhost-and-fragments-in-android/](http://wptrafficanalyzer.in/blog/creating-navigation-tabs-using-tabhost-and-fragments-in-android/)
